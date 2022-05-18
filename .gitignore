@@ -1,10 +1,8 @@
 env
-static/img/covers/*
 build
 dist
 test.*
 .vscode
-static/covers/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
