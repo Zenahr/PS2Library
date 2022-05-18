@@ -5,7 +5,8 @@ import configparser
 
 config = configparser.ConfigParser()
 config.read('config.ini')
-
+SUPPORTED_ISO_FORMATS = ('.iso', '.bin', '.mdf', '.nrg', '.img', '.dump', '.gz', '.cso', '.chd', '.ISO', '.BIN', '.MDF', '.NRG', '.IMG', '.DUMP', '.GZ', '.CSO', '.CHD')
+SUPPORTED_COVER_IMAGE_FORMATS = ('.png', '.jpg', '.jpeg', '.gif', '.webp', '.PNG', '.JPG', '.JPEG', '.GIF', '.WEBP')
 
 def get_games() -> list:
     games = list()
@@ -26,15 +27,15 @@ def get_games() -> list:
             )
             entry['display_name'] = root.split('\\')[-1] # get display name based on directory name
             for file in files:
-                if file.endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp')): # get cover image 
+                if file.endswith(SUPPORTED_COVER_IMAGE_FORMATS): # get cover image 
                     entry['cover'] = os.path.join(root, file)
                     entry['cover_extension'] = entry['cover'].split('.')[-1] # use to help build the cover URL
                 if len(glob.glob(root + '/*.iso')) > 1 or len(glob.glob(root + '/*.bin')) > 1: # determine if multidisc
                     entry['multidisc'] = True
-                    if file.endswith(('.iso', '.bin')):
+                    if file.endswith(SUPPORTED_ISO_FORMATS):
                         entry['isos'].append(os.path.join(root, file))
                 if not entry['multidisc']:
-                    if file.endswith(('.iso', '.bin')):
+                    if file.endswith(SUPPORTED_ISO_FORMATS):
                         entry['iso'] = os.path.join(root, file)
             games.append(entry)
     pprint(games)

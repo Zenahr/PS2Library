@@ -10,6 +10,8 @@ import glob, os
 import requests
 from utils.filesystem import get_games, prepare_artwork
 
+import psutil
+
 import logging
 import sys
 
@@ -47,8 +49,11 @@ if not ROMS_FOLDER:
 
 PCSX2_FLAGS = ' --fullscreen --nogui'
 
+def exit_app():
+  psutil.Process(os.getpid()).terminate()
+
 app = Flask(__name__)
-ui = FlaskUI(app, maximized=True, idle_interval=4294966, on_exit=os.system("taskkill /im make.exe"))
+ui = FlaskUI(app, maximized=True, idle_interval=4294966, on_exit=exit_app)
 
 games = get_games()
 prepare_artwork(games) # prepare artwork for games by copying it to the "covers" directory so that they can be served by Flask.
@@ -67,8 +72,8 @@ def open_project():
   data = request.get_json()
   isoPath = data['game']
   isosPath = data['games']
-  print(isoPath)
-  print(PCSX2_PATH + ' ' + '"' + isoPath + '"' + PCSX2_FLAGS)
+  # print(isoPath)
+  # print(PCSX2_PATH + ' ' + '"' + isoPath + '"' + PCSX2_FLAGS)
   subprocess.Popen(PCSX2_PATH + ' ' + '"' + isoPath + '"' + PCSX2_FLAGS)
   return render_template('index.html', games = games)
 
