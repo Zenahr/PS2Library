@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dracula">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PS2Library</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@2.6.0/dist/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="/static/css/main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;700&display=swap');
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        #appStatus {
+            transition: all 0.5s;
+        }
+    </style>
+</head>
+<body style="min-height: 100vh;">
+    <!-- <div class="navbar bg-base-300">
+        <div class="mx-auto">
+          <a class="btn btn-ghost normal-case text-xl text-center">PS2Library</a>
+        </div>
+        <div class="flex-none  text-center">
+          <button class="btn btn-square btn-ghost">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
+          </button>
+        </div>
+      </div> -->
+
+    <div class="games d-steam-cards mx-auto">
+        {% for game in games %}
+        <div class="d-steam-card-wrapper">
+            <form action="/open_folder" method="post">
+            <figure
+            class="d-steam-card hover-img"
+            style='background-image: url("/static/covers/{{ game['display_name'] }}.{{ game['cover_extension'] }}")'
+            onclick="handleClick(this)"
+            data-game="{{ game['iso'] }}"
+            data-game-disks="{{ game['isos'] }}"
+            >
+                <figcaption>
+                    <h2>{{ game['display_name'] }}</h2>
+                </figcaption>
+            </figure>
+        </div>
+            <button name="game" type="submit" value="{{ game.game_directory }}"></button>
+        </form>
+        {% endfor %}
+    </div>
+    <footer class="sticky top-[100vh] text-left">
+        <div class="container mt-2">
+        </div>
+    </footer>
+
+    <!-- https://github.com/kallaspriit/HTML5-JavaScript-Gamepad-Controller-Library -->
+    <script src="/static/js/gamepad.min.js"></script>
+    <script>        
+        var gamepad = new Gamepad();
+        gamepad.init();
+        gamepad.bind(Gamepad.Event.BUTTON_DOWN, function(e) {
+            console.log(e);
+            if (e.control == 'A') {
+                console.log('A button pressed');
+            }
+            if (e.control == 'DPAD_UP') {
+                console.log('DPAD_UP button pressed');
+                document.body.dispatchEvent(new KeyboardEvent('keydown', {'keyCode': 38}));
+            }
+            if (e.control == 'DPAD_DOWN') {
+                console.log('DPAD_DOWN button pressed');
+                document.body.dispatchEvent(new KeyboardEvent('keydown', {'keyCode': 40}));
+            }
+            if (e.control == 'DPAD_LEFT') {
+                console.log('DPAD_LEFT button pressed');
+                document.body.dispatchEvent(new KeyboardEvent('keydown', {'keyCode': 37}));
+            }
+            if (e.control == 'DPAD_RIGHT') {
+                console.log('DPAD_RIGHT button pressed');
+                document.body.dispatchEvent(new KeyboardEvent('keydown', {'keyCode': 39}));
+            }
+        });
+
+        function handleClick(e) {
+            fetch('/run_game', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    game: e.dataset.game,
+                    games: e.dataset.gameDisks
+                })
+            })
+        }
+
+        
+// FACE_1 == A
+// FACE_2 == B
+// FACE_3 == X
+// FACE_4 == Y
+// 
+// DPAD_UP == UP
+// DPAD_DOWN == DOWN
+// DPAD_LEFT == LEFT
+// DPAD_RIGHT == RIGHT
+// 
+// SELECT_BACK == SELECT
+// START_FORWARD = START
+
+
+        //gamepad.bind(Gamepad.Event.AXIS_CHANGED, function(e) {
+        //    console.log(e);
+        //    if (e.axis == 'LEFT_STICK_X') {
+        //        console.log('Left stick X axis changed');
+        //    }
+        //});
+        //gamepad.bind(Gamepad.Event.CONNECTED, function(e) {
+        //    console.log(e);
+        //    console.log('Gamepad connected');
+        //});
+        //gamepad.bind(Gamepad.Event.DISCONNECTED, function(e) {
+        //    console.log(e);
+        //    console.log('Gamepad disconnected');
+        //});
+    </script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:root {
+    color-scheme: dark;
+  }
+  
+
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+::-webkit-scrollbar {
+    // width: 0;  /* Remove scrollbar space */
+    // background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
+
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+      border-radius: 10px;
+      background-color: rgb(16, 16, 16);
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: rgb(39, 36, 36); 
+        box-shadow: inset 0 0 2px grey; 
+        border-radius: 10px;
+        outline: 0;
+        height: 2px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(21, 19, 19); 
+  }
+
+
+body {
+    background-color: #181818;
+}
+
+$card-spacing: 4px;
+$border-radius: 0px;
+$card-animation-time: 0.18s;
+
+.d-steam-cards {
+    padding: 1rem;
+    margin-left: -$card-spacing;
+    margin-right: -$card-spacing;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.d-steam-card-wrapper {
+    max-width: 250px;
+    min-width: 150px;
+    margin: 0;
+    flex: 0 1 16.66%;
+    padding: $card-spacing;
+    @media only screen and (max-width: 1200px) {
+        flex-basis: 20%;
+    }
+    @media only screen and (max-width: 768px) {
+        flex-basis: 25%;
+    }
+}
+
+.d-steam-card {
+    padding: 0 0 150% 0; // Use padding 'trick' to create a ratio for the cards
+    background: url('') no-repeat transparent 50% 50%;
+    background-size: cover;
+    border: 1px solid rgba(0, 0, 0, 0.25); // Wanted to add a little extra but subtle depth to the card.
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 10px -2px rgba(0, 0, 0, 0.5);
+    transition: all ease $card-animation-time 0.01s;
+    transform: perspective(222px) translate3d(0px, 5px, 0px) rotateX(0deg);
+    transform-style: preserve-3d;
+    perspective-origin: top;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    // filter: blur(20px);
+    border-radius: $border-radius;
+    
+    &:hover,
+    &:focus {
+        cursor: pointer;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        transform: perspective(222px) translate3d(0px, 0px, 8px) rotateX(3deg);
+        transform-origin: center;
+        box-shadow: 0 14px 16px -2px rgba(0, 0, 0, 0.5);
+        transform: scale(1.05);
+        &::before {
+            opacity: 1;
+            transform: translateY(-20%);
+        }
+    }
+    &:active {
+    }
+}
+
+.hover-img {
+    background-color: #000;
+    color: #fff;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+}
+
+.hover-img img {
+    vertical-align: top;
+    max-width: 100%;
+    backface-visibility: hidden;
+}
+
+.hover-img figcaption {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.1em;
+    opacity: 0;
+    z-index: 2;
+    transition-delay: 0.1s;
+    font-size: 24px;
+    font-family: sans-serif;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: $border-radius;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: all ease $card-animation-time 0.01s;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    user-select: none;
+  }
+  
+  .hover-img:hover figcaption {
+    opacity: 1;
+  }

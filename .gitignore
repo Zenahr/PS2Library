@@ -1,0 +1,6 @@
+env
+static/img/covers/*
+build
+dist
+test.*
+.vscode

@@ -1,0 +1,189 @@
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #101010;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #272424;
+  -webkit-box-shadow: inset 0 0 2px grey;
+          box-shadow: inset 0 0 2px grey;
+  border-radius: 10px;
+  outline: 0;
+  height: 2px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #151313;
+}
+
+body {
+  background-color: #181818;
+}
+
+.d-steam-cards {
+  padding: 1rem;
+  margin-left: -4px;
+  margin-right: -4px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.d-steam-card-wrapper {
+  max-width: 250px;
+  min-width: 150px;
+  margin: 0;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 16.66%;
+          flex: 0 1 16.66%;
+  padding: 4px;
+}
+
+@media only screen and (max-width: 1200px) {
+  .d-steam-card-wrapper {
+    -ms-flex-preferred-size: 20%;
+        flex-basis: 20%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .d-steam-card-wrapper {
+    -ms-flex-preferred-size: 25%;
+        flex-basis: 25%;
+  }
+}
+
+.d-steam-card {
+  padding: 0 0 150% 0;
+  background: url("") no-repeat transparent 50% 50%;
+  background-size: cover;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  -webkit-box-shadow: 0 8px 10px -2px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 8px 10px -2px rgba(0, 0, 0, 0.5);
+  -webkit-transition: all ease 0.18s 0.01s;
+  transition: all ease 0.18s 0.01s;
+  -webkit-transform: perspective(222px) translate3d(0px, 5px, 0px) rotateX(0deg);
+          transform: perspective(222px) translate3d(0px, 5px, 0px) rotateX(0deg);
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-perspective-origin: top;
+          perspective-origin: top;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 0px;
+}
+
+.d-steam-card:hover, .d-steam-card:focus {
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  -webkit-transform: perspective(222px) translate3d(0px, 0px, 8px) rotateX(3deg);
+          transform: perspective(222px) translate3d(0px, 0px, 8px) rotateX(3deg);
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  -webkit-box-shadow: 0 14px 16px -2px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 14px 16px -2px rgba(0, 0, 0, 0.5);
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+
+.d-steam-card:hover::before, .d-steam-card:focus::before {
+  opacity: 1;
+  -webkit-transform: translateY(-20%);
+          transform: translateY(-20%);
+}
+
+.hover-img {
+  background-color: #000;
+  color: #fff;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+}
+
+.hover-img img {
+  vertical-align: top;
+  max-width: 100%;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+}
+
+.hover-img figcaption {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  z-index: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  line-height: 1.1em;
+  opacity: 0;
+  z-index: 2;
+  -webkit-transition-delay: 0.1s;
+          transition-delay: 0.1s;
+  font-size: 24px;
+  font-family: sans-serif;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 0px;
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-transition: all ease 0.18s 0.01s;
+  transition: all ease 0.18s 0.01s;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.hover-img:hover figcaption {
+  opacity: 1;
+}
+/*# sourceMappingURL=main.css.map */
