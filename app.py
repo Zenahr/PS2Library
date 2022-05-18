@@ -12,6 +12,11 @@ from utils.filesystem import get_games, prepare_artwork
 
 import psutil
 
+# Windows app icon fix (taskbar and taskbar manager)
+import ctypes
+myappid = u'mycompany.myproduct.subproduct.version' # arbitrary string
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+
 import logging
 import sys
 

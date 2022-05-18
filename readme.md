@@ -1,3 +1,14 @@
+## Preview
+
+### Browse games library
+![](repo-assets/general.gif)
+
+### Resize window
+![](repo-assets/feature-resize.gif)
+
+### Launch game from within PS2Library
+![](repo-assets/start-game.gif)
+
 ## Why?
 
 - Modern, web-technology based UI (everything is OFFLINE, but the technology used is HTML and CSS)
@@ -21,7 +32,6 @@ I personally tried Specabis and PCSX2Bonus, of which both had some problems or w
 ## How does it work under the hood?
 
 I use *Python* as the general language, *Flask* for the UI and *flaskwebgui*, *HTML* and *CSS* for creating and styling the UI.
-
 
 
 ## Inspiration
@@ -69,3 +79,7 @@ All formats that are supported by PCSX2 are recognized by PS2Library:
 - .JPEG
 - .GIF
 - .WEBP
+
+## Known issues
+
+- After starting a game right after launching PS2Library, any consequent launches are in the background (you have to switch to PCSX2 via the taskbar) (cause: unkown as of now.)
