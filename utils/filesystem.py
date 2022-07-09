@@ -26,6 +26,9 @@ def get_games() -> list:
                 isos            = list(), # reference this list if multidisc is True
             )
             entry['display_name'] = root.split('\\')[-1] # get display name based on directory name
+            if entry['display_name'] == 'ROMS':
+                del entry
+                continue
             for file in files:
                 if file.endswith(SUPPORTED_COVER_IMAGE_FORMATS): # get cover image 
                     entry['cover'] = os.path.join(root, file)
