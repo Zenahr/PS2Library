@@ -13,6 +13,7 @@
     />
     <link rel="stylesheet" href="/static/css/main.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.3" integrity="sha384-e2no7T1BxIs3ngCTptBu4TjvRWF4bBjFW0pt7TpxOEkRJuvrjRt29znnYuoLTz9S" crossorigin="anonymous"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;700&display=swap');
         body {
@@ -23,38 +24,24 @@
         }
     </style>
 </head>
-<body style="min-height: 100vh;">
-    <!-- <div class="navbar bg-base-300">
-        <div class="mx-auto">
-          <a class="btn btn-ghost normal-case text-xl text-center">PS2Library</a>
-        </div>
-        <div class="flex-none  text-center">
-          <button class="btn btn-square btn-ghost">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
-          </button>
-        </div>
-      </div> -->
 
-    <div class="games d-steam-cards mx-auto">
-        {% for game in games %}
-        <div class="d-steam-card-wrapper">
-            <form action="/open_folder" method="post">
-            <figure
-            class="d-steam-card hover-img"
-            style='background-image: url("/static/covers/{{ game['display_name'] }}.{{ game['cover_extension'] }}")'
-            onclick="handleClick(this)"
-            data-game="{{ game['iso'] }}"
-            data-game-disks="{{ game['isos'] }}"
-            >
-                <figcaption>
-                    <h2>{{ game['display_name'] }}</h2>
-                </figcaption>
-            </figure>
-        </div>
-            <button name="game" type="submit" value="{{ game.game_directory }}"></button>
-        </form>
-        {% endfor %}
+
+<body style="min-height: 100vh;">
+      <!-- SEARCH -->
+      <input class="form-control" type="search" 
+             name="query" placeholder="Search for a game" 
+             hx-get="/search" 
+             hx-trigger="keyup changed delay:0ms, search" 
+             hx-target="#games" 
+             hx-indicator=".htmx-indicator">
+      <!-- SEARCH -->
+             
+      <!-- GAMES -->
+    <div id="games" class="games d-steam-cards mx-auto">
+        {% include 'partial.games.html' %}
     </div>
+      <!-- GAMES -->
+
     <footer class="sticky top-[100vh] text-left">
         <div class="container mt-2">
         </div>
@@ -101,7 +88,12 @@
             })
         }
 
-        
+        // observe keypresses
+        document.addEventListener('keydown', function(e) {
+            // focus search bar
+                document.querySelector('input').focus();
+        });
+
 // FACE_1 == A
 // FACE_2 == B
 // FACE_3 == X

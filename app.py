@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, render_template_string
 import json
 import threading, webbrowser, random
 import subprocess
@@ -9,7 +9,7 @@ import configparser
 import glob, os
 import requests
 from utils.filesystem import get_games, prepare_artwork
-
+from flask_htmx import HTMX
 import psutil
 
 # Windows app icon fix (taskbar and taskbar manager)
@@ -20,46 +20,47 @@ ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 import logging
 import sys
 
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(message)s')
+def logging_setup():
+  logger = logging.getLogger()
+  logger.setLevel(logging.INFO)
+  formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(message)s')
 
-stdout_handler = logging.StreamHandler(sys.stdout)
-stdout_handler.setLevel(logging.INFO)
-stdout_handler.setFormatter(formatter)
+  stdout_handler = logging.StreamHandler(sys.stdout)
+  stdout_handler.setLevel(logging.INFO)
+  stdout_handler.setFormatter(formatter)
 
-file_handler = logging.FileHandler('debug.log')
-file_handler.setLevel(logging.INFO)
-file_handler.setFormatter(formatter)
+  file_handler = logging.FileHandler('debug.log')
+  file_handler.setLevel(logging.INFO)
+  file_handler.setFormatter(formatter)
 
 
-logger.addHandler(file_handler)
-logger.addHandler(stdout_handler)
+  logger.addHandler(file_handler)
+  logger.addHandler(stdout_handler)
+
 
 config = configparser.ConfigParser()
 config.read('config.ini')
-
 PCSX2_PATH = config['default']['PCSX2_PATH']
 if not PCSX2_PATH:
   # directory_wizard('Please navigate to the folder your PCSX2 executable is and select the .exe file', 'PCSX_PATH')
   # PCSX2_PATH = config['default']['PCSX2_PATH']
   pass
-
 ROMS_FOLDER = config['default']['ROMS_FOLDER']
 if not ROMS_FOLDER:
   # directory_wizard('Please select the folder your ROMS are in (.iso, .bin, etc.)', 'ROMS_FOLDER')
   # ROMS_FOLDER = config['default']['ROMS_FOLDER']
   pass
-
-
 PCSX2_FLAGS = ' --fullscreen --nogui'
 
 def exit_app():
   psutil.Process(os.getpid()).terminate()
 
-app = Flask(__name__)
-ui = FlaskUI(app, maximized=True, idle_interval=4294966, on_exit=exit_app)
+logging_setup()
 
+app = Flask(__name__)
+htmx = HTMX()
+htmx.init_app(app)
+ui = FlaskUI(app, maximized=True, idle_interval=4294966, on_exit=exit_app)
 games = get_games()
 prepare_artwork(games) # prepare artwork for games by copying it to the "covers" directory so that they can be served by Flask.
 
@@ -67,6 +68,13 @@ prepare_artwork(games) # prepare artwork for games by copying it to the "covers"
 def index():
     return render_template('index.html', games = games)
 
+@app.get('/search')
+def search():
+  if htmx:
+    query = request.args.get('query').casefold()
+    _games = [game for game in games if query in game['display_name'].casefold()]
+    return render_template('partial.games.html', games = _games)
+    
 @app.route("/api")
 def me_api():
     return jsonify(games)
@@ -83,8 +91,8 @@ def open_project():
   return render_template('index.html', games = games)
 
 if '__main__' == __name__:
-  # app.run(debug=True)
+  app.run(debug=True)
 
   # PRODUCTION ONLY ---------
-  ui.run()
+  # ui.run()
   # PRODUCTION ONLY ---------
