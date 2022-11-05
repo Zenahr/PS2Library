@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, render_template_string
 import json
 import threading, webbrowser, random
 import subprocess
@@ -74,7 +74,7 @@ def search():
     query = request.args.get('query').casefold()
     _games = [game for game in games if query in game['display_name'].casefold()]
     return render_template('partial.games.html', games = _games)
-
+    
 @app.route("/api")
 def me_api():
     return jsonify(games)

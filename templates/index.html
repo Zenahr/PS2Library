@@ -24,6 +24,8 @@
         }
     </style>
 </head>
+
+
 <body style="min-height: 100vh;">
       <!-- SEARCH -->
       <input class="form-control" type="search" 
@@ -36,24 +38,7 @@
              
       <!-- GAMES -->
     <div id="games" class="games d-steam-cards mx-auto">
-        {% for game in games %}
-        <div class="d-steam-card-wrapper">
-            <form action="/open_folder" method="post">
-            <figure
-            class="d-steam-card hover-img"
-            style='background-image: url("/static/covers/{{ game['display_name'] }}.{{ game['cover_extension'] }}")'
-            onclick="handleClick(this)"
-            data-game="{{ game['iso'] }}"
-            data-game-disks="{{ game['isos'] }}"
-            >
-                <figcaption>
-                    <h2>{{ game['display_name'] }}</h2>
-                </figcaption>
-            </figure>
-        </div>
-            <button name="game" type="submit" value="{{ game.game_directory }}"></button>
-        </form>
-        {% endfor %}
+        {% include 'partial.games.html' %}
     </div>
       <!-- GAMES -->
 
