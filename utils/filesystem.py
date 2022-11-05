@@ -33,15 +33,18 @@ def get_games() -> list:
                 if file.endswith(SUPPORTED_COVER_IMAGE_FORMATS): # get cover image 
                     entry['cover'] = os.path.join(root, file)
                     entry['cover_extension'] = entry['cover'].split('.')[-1] # use to help build the cover URL
-                if len(glob.glob(root + '/*.iso')) > 1 or len(glob.glob(root + '/*.bin')) > 1: # determine if multidisc
-                    entry['multidisc'] = True
-                    if file.endswith(SUPPORTED_ISO_FORMATS):
-                        entry['isos'].append(os.path.join(root, file))
+                try:
+                    if len(glob.glob(root + '/*.iso')) > 1 or len(glob.glob(root + '/*.bin')) > 1: # determine if multidisc
+                        entry['multidisc'] = True
+                        if file.endswith(SUPPORTED_ISO_FORMATS):
+                            entry['isos'].append(os.path.join(root, file))
+                except Exception as e:
+                    print(e)
                 if not entry['multidisc']:
                     if file.endswith(SUPPORTED_ISO_FORMATS):
                         entry['iso'] = os.path.join(root, file)
             games.append(entry)
-    pprint(games)
+    # pprint(games)
     return games
 
 def prepare_artwork(games: list):
@@ -55,4 +58,5 @@ def prepare_artwork(games: list):
 
 if '__main__' == __name__:
     # prepare_artwork(get_games())
-    get_games()
+    games = get_games()
+    print(games)

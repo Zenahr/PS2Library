@@ -9,6 +9,12 @@
 ### Launch game from within PS2Library
 ![](repo-assets/start-game.gif)
 
+## CHANGELOG
+
+### 2022-11-05
+
+- added active, fuzzy search
+
 ## Why?
 
 - Modern, web-technology based UI (everything is OFFLINE, but the technology used is HTML and CSS)
