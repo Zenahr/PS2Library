@@ -8,7 +8,6 @@ config.read('config.ini')
 SUPPORTED_ISO_FORMATS = ('.iso', '.bin', '.mdf', '.nrg', '.img', '.dump', '.gz', '.cso', '.chd', '.ISO', '.BIN', '.MDF', '.NRG', '.IMG', '.DUMP', '.GZ', '.CSO', '.CHD')
 SUPPORTED_COVER_IMAGE_FORMATS = ('.png', '.jpg', '.jpeg', '.gif', '.webp', '.PNG', '.JPG', '.JPEG', '.GIF', '.WEBP')
 
-@profile
 def get_games() -> list:
     games = list()
     ROMS_FOLDER = config['default']['ROMS_FOLDER']

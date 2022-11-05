@@ -55,7 +55,7 @@ PCSX2_FLAGS = ' --fullscreen --nogui'
 def exit_app():
   psutil.Process(os.getpid()).terminate()
 
-logging_setup()
+# logging_setup()
 
 app = Flask(__name__)
 htmx = HTMX()
@@ -91,8 +91,8 @@ def open_project():
   return render_template('index.html', games = games)
 
 if '__main__' == __name__:
-  app.run(debug=True)
+  # app.run(debug=True)
 
   # PRODUCTION ONLY ---------
-  # ui.run()
+  ui.run()
   # PRODUCTION ONLY ---------
