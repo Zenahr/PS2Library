@@ -8,11 +8,12 @@ config.read('config.ini')
 SUPPORTED_ISO_FORMATS = ('.iso', '.bin', '.mdf', '.nrg', '.img', '.dump', '.gz', '.cso', '.chd', '.ISO', '.BIN', '.MDF', '.NRG', '.IMG', '.DUMP', '.GZ', '.CSO', '.CHD')
 SUPPORTED_COVER_IMAGE_FORMATS = ('.png', '.jpg', '.jpeg', '.gif', '.webp', '.PNG', '.JPG', '.JPEG', '.GIF', '.WEBP')
 
+@profile
 def get_games() -> list:
     games = list()
     ROMS_FOLDER = config['default']['ROMS_FOLDER']
     print(ROMS_FOLDER)
-    for root, dirs, files in os.walk(ROMS_FOLDER):
+    for root, _, files in os.walk(ROMS_FOLDER):
         # if current directory is "other", skip it.
         if root.split('\\')[-1] == 'other':
             continue
@@ -34,10 +35,11 @@ def get_games() -> list:
                     entry['cover'] = os.path.join(root, file)
                     entry['cover_extension'] = entry['cover'].split('.')[-1] # use to help build the cover URL
                 try:
-                    if len(glob.glob(root + '/*.iso')) > 1 or len(glob.glob(root + '/*.bin')) > 1: # determine if multidisc
-                        entry['multidisc'] = True
-                        if file.endswith(SUPPORTED_ISO_FORMATS):
-                            entry['isos'].append(os.path.join(root, file))
+                    pass # UNCOMMENT THIS LINE TO ENABLE MULTIDISC SUPPORT
+                    # if len(glob.glob(root + '/*.iso')) > 1 or len(glob.glob(root + '/*.bin')) > 1: # determine if multidisc
+                    #     entry['multidisc'] = True
+                    #     if file.endswith(SUPPORTED_ISO_FORMATS):
+                    #         entry['isos'].append(os.path.join(root, file))
                 except Exception as e:
                     print(e)
                 if not entry['multidisc']:
@@ -57,6 +59,6 @@ def prepare_artwork(games: list):
                 shutil.copy(game['cover'], os.path.join('static', 'covers', game['display_name'] + '.' + original_cover_extension))
 
 if '__main__' == __name__:
-    # prepare_artwork(get_games())
+    prepare_artwork(get_games())
     games = get_games()
-    print(games)
+    # print(games)

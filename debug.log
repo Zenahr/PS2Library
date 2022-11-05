@@ -3855,3 +3855,19 @@
 2022-11-05 04:18:19,578 | WARNING |  * Debugger is active!
 2022-11-05 04:18:19,600 | INFO |  * Debugger PIN: 621-799-805
 2022-11-05 04:18:20,664 | INFO |  * Detected change in 'c:\\SoftwareDevelopment\\PS2Library\\app.py', reloading
+2022-11-05 04:18:20,706 | INFO |  * Restarting with stat
+2022-11-05 04:18:21,432 | WARNING |  * Debugger is active!
+2022-11-05 04:18:21,454 | INFO |  * Debugger PIN: 621-799-805
+2022-11-05 04:18:49,108 | INFO |  * Detected change in 'c:\\SoftwareDevelopment\\PS2Library\\app.py', reloading
+2022-11-05 04:18:49,144 | INFO |  * Restarting with stat
+2022-11-05 04:18:49,824 | WARNING |  * Debugger is active!
+2022-11-05 04:18:49,849 | INFO |  * Debugger PIN: 621-799-805
+2022-11-05 04:19:19,534 | INFO |  * Detected change in 'c:\\SoftwareDevelopment\\PS2Library\\utils\\filesystem.py', reloading
+2022-11-05 04:19:19,573 | INFO |  * Restarting with stat
+2022-11-05 04:33:52,019 | INFO |  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2022-11-05 04:34:39,188 | INFO |  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2022-11-05 04:34:59,218 | INFO |  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2022-11-05 04:48:40,890 | INFO |  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2022-11-05 04:50:08,326 | INFO |  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2022-11-05 04:51:13,155 | INFO |  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2022-11-05 04:51:34,755 | INFO |  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
